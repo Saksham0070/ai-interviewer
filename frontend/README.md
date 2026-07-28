@@ -436,7 +436,7 @@ should be used for sharing required variables.
 
 **Saksham Sagar**
 
-Computer Science Engineer
+Software Developer
 
 GitHub:
 [https://github.com/Saksham0070](https://github.com/Saksham0070)
