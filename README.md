@@ -447,12 +447,3 @@ GitHub:
 
 Give it a star ⭐ and feel free to contribute!
 
-````
-
-After adding it:
-
-```bash
-git add README.md
-git commit -m "Add project README"
-git push
-````
