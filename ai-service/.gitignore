@@ -4,3 +4,6 @@ venv/
 __pycache__/
 *.pyc
 .env
+frontend/.env
+backend/.env
+ai-service/.env
