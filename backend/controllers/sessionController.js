@@ -6,8 +6,9 @@ import formData from 'form-data';
 import mongoose, { mongo } from 'mongoose';
 import { error } from 'console';
 
-const AI_SERVICE_URL = 'http://localhost:8000';
-
+const AI_SERVICE_URL =
+    process.env.AI_SERVICE_URL || "http://localhost:8000";
+    
 const pushSocketUpdate = (io,userId,sessionId, status,message,session=null) => {
     io.to(userId.toString()).emit('sessionUpdate', {
         sessionId,

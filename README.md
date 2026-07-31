@@ -1,434 +1,367 @@
 # 🤖 AI Interviewer
 
-An AI-powered technical interview platform built using the **MERN stack** with a dedicated **FastAPI AI microservice**.
+An AI-powered technical interview platform built using the **MERN Stack**, **FastAPI**, **Whisper**, and **Ollama**. The application generates role-specific interview questions, conducts AI-assisted interviews, evaluates candidate responses, and provides intelligent feedback.
 
-The platform simulates real technical interviews by generating customized interview questions, accepting candidate responses through text, code, and voice, and providing AI-based evaluation with feedback.
-
----
-
-## 🚀 Features
-
-### 👨‍💻 AI Generated Interviews
-- Generate customized interview questions based on:
-  - Job role
-  - Experience level
-  - Interview type
-  - Number of questions
-
-- Supports:
-  - Conceptual questions
-  - Coding challenges
-  - Mixed interviews
+The project follows a **microservices architecture** and is fully **Dockerized** using Docker Compose for easy setup and deployment.
 
 ---
 
-### 🧠 AI Interview Evaluation
+# 🚀 Features
 
-The AI evaluates candidate responses based on:
-
-- Technical correctness
-- Confidence level
-- Explanation quality
-- Coding approach
-- Overall performance
-
-Provides:
-- Technical score
-- Confidence score
-- AI-generated feedback
-- Ideal answers
+* AI-generated interview questions
+* Coding + Oral interview modes
+* AI evaluation and feedback
+* Speech-to-text using Whisper
+* Local LLM inference using Ollama
+* Google OAuth authentication
+* JWT-based authentication
+* Real-time communication using Socket.IO
+* MongoDB Atlas integration
+* Fully Dockerized architecture
+* Production-ready frontend served through Nginx
 
 ---
 
-### 🎤 Voice Based Interview
-
-Candidates can answer questions using voice.
-
-Features:
-- Audio recording
-- Speech-to-text conversion
-- Whisper AI transcription
-- Automatic evaluation of responses
-
----
-
-### 💻 Coding Interview Support
-
-Includes:
-
-- Code editor integration using Monaco Editor
-- Coding challenge evaluation
-- AI feedback on submitted solutions
-
----
-
-### 🔐 Authentication
-
-Supports:
-
-- User registration and login
-- JWT-based authentication
-- Google OAuth authentication
-
----
-
-### ⚡ Real-Time Communication
-
-Implemented using:
-
-- Socket.IO
-- Real-time interview updates
-- Live session communication
-
----
-
-# 🏗️ System Architecture
-
-
-```
-
-```
-                React Frontend
-                     |
-                     |
-                     v
-
-              Node.js Backend
-                     |
-      --------------------------------
-      |                              |
-      v                              v
-
-  MongoDB                    FastAPI AI Service
-                                     |
-                       -----------------------------
-                       |                           |
-                       v                           v
-
-                   Ollama LLM              Whisper AI Model
-```
-
-```
-
----
-
-# 🛠️ Tech Stack
+# 🛠 Tech Stack
 
 ## Frontend
 
-- React.js
-- Vite
-- Tailwind CSS
-- Redux Toolkit
-- React Router
-- Axios
-- Socket.IO Client
-- Monaco Editor
-
+* React 19
+* Vite
+* Redux Toolkit
+* React Router
+* Tailwind CSS
+* Axios
+* Socket.IO Client
+* Google OAuth
 
 ## Backend
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT Authentication
-- Google OAuth
-- Socket.IO
-- Multer
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
+* JWT
+* Socket.IO
+* Multer
 
+## AI Microservice
 
-## AI Service
+* FastAPI
+* Python
+* Ollama
+* Whisper
+* Pydub
+* FFmpeg
 
-- Python
-- FastAPI
-- Ollama
-- Whisper Speech Recognition
-- Pydantic
-- FFmpeg
-- PyDub
+## DevOps
 
+* Docker
+* Docker Compose
+* Nginx
 
-## Database
+---
 
-- MongoDB
+# 🏗 Architecture
 
+```
+                   Browser
+                       │
+                       ▼
+                 Nginx (Frontend)
+                       │
+                       ▼
+               React Production Build
+                       │
+                       ▼
+               Express Backend API
+                  │            │
+                  │            ▼
+                  │      MongoDB Atlas
+                  │
+                  ▼
+          FastAPI AI Service
+                  │
+                  ▼
+               Ollama LLM
+          (qwen2.5:3b Model)
+                  │
+                  ▼
+         Whisper Speech Model
+```
 
 ---
 
 # 📂 Project Structure
 
 ```
-
 AI-Interviewer
-
 │
 ├── frontend
-│   ├── src
-│   ├── package.json
-│   └── vite.config.js
-│
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   └── ...
 │
 ├── backend
-│   ├── controllers
-│   ├── models
-│   ├── routes
-│   ├── middleware
-│   ├── server.js
-│   └── package.json
+│   ├── Dockerfile
+│   └── ...
 │
+├── ai-service
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── ...
 │
-└── ai-service
-├── main.py
-├── requirements.txt
-└── .env
-
-````
+├── docker-compose.yml
+├── .env.example
+├── README.md
+└── .gitignore
+```
 
 ---
 
-# ⚙️ Installation & Setup
+# ⚙️ Prerequisites
 
-## 1. Clone Repository
+Install the following before running the project:
+
+* Docker Desktop
+* Git
+
+No need to install:
+
+* Node.js
+* Python
+* Ollama
+* FFmpeg
+
+Docker handles everything.
+
+---
+
+# 📦 Running the Project (Docker)
+
+## 1. Clone the repository
 
 ```bash
 git clone https://github.com/Saksham0070/ai-interviewer.git
 
 cd ai-interviewer
-````
-
----
-
-# Frontend Setup
-
-Navigate to frontend:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create `.env` file:
-
-```
-VITE_BACKEND_URL=http://localhost:5000
-VITE_SOCKET_URL=http://localhost:5000
-```
-
-Run frontend:
-
-```bash
-npm run dev
-```
-
-Frontend will run on:
-
-```
-http://localhost:5173
 ```
 
 ---
 
-# Backend Setup
-
-Navigate:
-
-```bash
-cd backend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create `.env` file:
+## 2. Create a root `.env`
 
 Example:
 
-```
-PORT=5000
-
-MONGO_URI=<your_mongodb_connection_string>
-
-JWT_SECRET=<your_secret>
-
-GOOGLE_CLIENT_ID=<your_google_client_id>
-
-AI_SERVICE_URL=http://localhost:8000
+```env
+VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 ```
 
-Start backend:
+---
 
-Development:
+## 3. Start the application
 
 ```bash
-npm run dev
+docker compose up --build
 ```
 
-Production:
+Docker automatically:
 
-```bash
-npm start
+* Builds all services
+* Starts React
+* Starts Express
+* Starts FastAPI
+* Downloads the Ollama model (first run only)
+* Starts Ollama
+* Creates Docker networking
+
+---
+
+## 4. Open the application
+
+Frontend
+
+```
+http://localhost
 ```
 
-Backend runs on:
+Backend
 
 ```
 http://localhost:5000
 ```
 
----
-
-# AI Service Setup
-
-Navigate:
-
-```bash
-cd ai-service
-```
-
-Create Python environment:
-
-```bash
-python -m venv venv
-```
-
-Activate environment:
-
-Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Create `.env`
-
-Example:
-
-```
-AI_SERVICE_PORT=8000
-
-OLLAMA_MODEL_NAME=qwen2.5:3b
-```
-
-Start FastAPI server:
-
-```bash
-uvicorn main:app --reload
-```
-
-AI Service runs on:
+FastAPI
 
 ```
 http://localhost:8000
 ```
 
----
+Swagger UI
 
-# 🤖 AI Model Setup
-
-This project uses Ollama for local LLM inference.
-
-Install Ollama:
-
-[https://ollama.com/](https://ollama.com/)
-
-Pull required model:
-
-```bash
-ollama pull qwen2.5:3b
+```
+http://localhost:8000/docs
 ```
 
-Verify:
+Ollama
 
-```bash
-ollama list
+```
+http://localhost:11434
 ```
 
 ---
 
-# 🔌 API Endpoints
+# 🖥 Running Without Docker
 
-## Generate Interview Questions
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+### Backend
+
+```bash
+cd backend
+
+npm install
+
+npm start
+```
+
+---
+
+### AI Service
+
+Create a virtual environment.
+
+Install dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI.
+
+```bash
+python main.py
+```
+
+Run Ollama locally.
+
+```bash
+ollama serve
+```
+
+---
+
+# 🔑 Environment Variables
+
+## Frontend
 
 ```
+VITE_API_URL
+
+VITE_GOOGLE_CLIENT_ID
+```
+
+---
+
+## Backend
+
+```
+MONGO_URI
+
+PORT
+
+JWT_SECRET
+
+GOOGLE_CLIENT_ID
+
+AI_SERVICE_URL
+```
+
+---
+
+## AI Service
+
+```
+AI_SERVICE_PORT
+
+OLLAMA_MODEL_NAME
+```
+
+---
+
+# 📡 API Endpoints
+
+## Backend
+
+```
+POST /api/users
+
+POST /api/sessions
+```
+
+---
+
+## AI Service
+
+```
+GET /
+
 POST /generate-questions
-```
 
-Generates AI-based interview questions.
-
----
-
-## Speech Transcription
-
-```
 POST /transcribe
-```
 
-Converts candidate audio responses into text using Whisper.
-
----
-
-## Evaluate Answer
-
-```
 POST /evaluate
 ```
 
-Evaluates candidate answers and returns:
+---
 
-```json
-{
- "technicalScore":90,
- "confidenceScore":85,
- "aiFeedback":"...",
- "idealAnswer":"..."
-}
-```
+# 🐳 Docker Services
+
+The application consists of five containers.
+
+| Service     | Purpose                                       |
+| ----------- | --------------------------------------------- |
+| frontend    | React application served by Nginx             |
+| backend     | Express REST API                              |
+| ai-service  | FastAPI AI microservice                       |
+| ollama      | Local LLM server                              |
+| ollama-init | Downloads the required model on first startup |
 
 ---
 
-# 🔒 Environment Variables
+# 📈 Future Improvements
 
-The following files should never be committed:
-
-```
-.env
-node_modules/
-venv/
-```
-
-Example environment files:
-
-```
-.env.example
-```
-
-should be used for sharing required variables.
+* Kubernetes deployment
+* CI/CD using GitHub Actions
+* HTTPS support
+* Redis caching
+* Role-based dashboards
+* Multiple LLM model selection
+* Resume analysis
+* Interview history analytics
 
 ---
 
-# 📌 Future Improvements
+# 📷 Screenshots
 
-* [ ] Docker containerization
-* [ ] Cloud deployment
-* [ ] Resume based interview generation
-* [ ] Advanced AI voice interaction
-* [ ] Interview analytics dashboard
-* [ ] Candidate ranking system
+Add screenshots of:
+
+* Login Page
+* Dashboard
+* Interview Screen
+* Coding Round
+* AI Evaluation
+* Analytics Dashboard
 
 ---
 
@@ -436,14 +369,16 @@ should be used for sharing required variables.
 
 **Saksham Sagar**
 
-Software Developer
+Software Engineer
 
-GitHub:
-[https://github.com/Saksham0070](https://github.com/Saksham0070)
+GitHub: https://github.com/Saksham0070
+
+LinkedIn: *(Add your LinkedIn profile here.)*
 
 ---
 
-# ⭐ If you like this project
+# ⭐ Support
 
-Give it a star ⭐ and feel free to contribute!
+If you found this project useful, consider giving it a ⭐ on GitHub.
 
+Contributions, issues, and feature requests are welcome.

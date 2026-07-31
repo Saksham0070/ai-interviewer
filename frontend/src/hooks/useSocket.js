@@ -5,8 +5,10 @@ import { socketUpdateSession } from '../features/sessions/sessionSlice';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 
-const BACKEND_URL = import.meta.env.VITE_API_URL.replace('/api', ''); 
-
+const BACKEND_URL =
+    (import.meta.env.VITE_API_URL || "http://localhost:5000/api")
+        .replace("/api", "");
+        
 const useSocket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

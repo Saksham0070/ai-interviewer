@@ -17,6 +17,10 @@ load_dotenv()
 AI_SERVICE_PORT = int(os.getenv("AI_SERVICE_PORT",8000))
 OLLAMA_MODEL_NAME = os.getenv("OLLAMA_MODEL_NAME","qwen2.5:3b")
 
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+
+client = ollama.Client(host=OLLAMA_HOST)
+
 app = FastAPI(title="AI Interviewer Microservice", version = "1.0")
 origins = ["*"]
 
@@ -94,7 +98,7 @@ async def generate_questions(request:QuestionRequest):
             f"Generate exactly {request.count} unique interview questions for a {request.level} level {request.role} "
         )
 
-        response = ollama.generate(
+        response = client.generate(
             model = OLLAMA_MODEL_NAME,
             prompt = user_prompt,
             system = system_prompt,
@@ -165,7 +169,7 @@ async def evaluate(request:EvaluationRequest):
         f"Code Answer: {request.user_code or 'No code provided'}\n"
         )
 
-        response=ollama.generate(
+        response=client.generate(
             model=OLLAMA_MODEL_NAME,
             prompt=user_prompt,
             system=system_prompt,

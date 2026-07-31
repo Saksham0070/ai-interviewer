@@ -43,6 +43,7 @@ const app = express();
 const server = http.createServer(app);
 
 const allowOrigin =[
+    'http://localhost',
     'http://localhost:5174',
     'http://localhost:5173',
 ]
