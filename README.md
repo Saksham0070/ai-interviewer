@@ -99,15 +99,18 @@ AI-Interviewer
 │
 ├── frontend
 │   ├── Dockerfile
+|   |-- .env.example
 │   ├── nginx.conf
 │   └── ...
 │
 ├── backend
 │   ├── Dockerfile
+|   |-- .env.example
 │   └── ...
 │
 ├── ai-service
 │   ├── Dockerfile
+|   |-- .env.example
 │   ├── requirements.txt
 │   └── ...
 │
